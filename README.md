@@ -17,14 +17,14 @@ export PANDORA_UID="$(id -u)" PANDORA_GID="$(id -g)"
 If myMPD and MPD use host networking, start the bridge on loopback.
 
 ```bash
-docker compose -f compose.yaml -f compose.host.yaml up --build -d
+docker compose -f compose.yaml -f compose.host.yaml up --pull always -d
 ```
 
 If myMPD and MPD share a private Docker network, use the base Compose file.
 
 ```bash
 export MPD_NETWORK=your-existing-mpd-network
-docker compose up --build -d
+docker compose up --pull always -d
 ```
 
 Clients on that Docker network can list and play stations.
