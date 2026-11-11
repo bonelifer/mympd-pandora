@@ -1,0 +1,7 @@
+services:
+  pandora:
+    network_mode: host
+    networks: !reset []
+    command: ["--listen", "127.0.0.1", "--port", "18765"]
+
+networks: !reset {}
