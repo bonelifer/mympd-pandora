@@ -70,7 +70,7 @@ Install the controls proxy with `install-picker.py --controls` using the same
 myMPD and bridge URLs as for the picker. Use `--replace` to update an existing
 proxy.
 
-Copy `pandora-controls.js` to `pics/pandora-controls-v4.js` in myMPD's work
+Copy `pandora-controls.js` to `pics/pandora-controls-v5.js` in myMPD's work
 directory. Add the contents of `pandora-loader.js` to `config/custom_js`
 (`config/custom.js` in some versions). The loader keeps the customization file
 within myMPD's size limit. If you use a different bridge URL, set the

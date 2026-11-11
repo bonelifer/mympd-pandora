@@ -2,7 +2,7 @@
 (() => {
     const script = document.createElement("script");
     const base = new URL(".", document.currentScript.src);
-    const url = new URL("browse/pics/pandora-controls-v4.js", base).href;
+    const url = new URL("browse/pics/pandora-controls-v5.js", base).href;
     const policy = window.trustedTypes?.createPolicy("pandora-player", {
         createScriptURL(candidate) {
             if (candidate !== url) {
