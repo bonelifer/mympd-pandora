@@ -58,6 +58,8 @@ class ActiveTrack:
             "id": self.id, "title": self.title,
             "artist": getattr(self.track, "artist_name", None),
             "album": getattr(self.track, "album_name", None),
+            "albumArtUrl": getattr(self.track, "album_art_url", None),
+            "duration": getattr(self.track, "track_length", None),
             "song": getattr(self.track, "song_name", None),
             "canSkip": not self.track.is_ad and not self.skip.is_set(),
             "canLove": bool(getattr(self.track, "allow_feedback", False))
