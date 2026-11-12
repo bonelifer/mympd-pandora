@@ -257,8 +257,27 @@
         const updateNativeControls = updatePlaybackControls;
         let hadPandoraControls = false;
 
+        function renderMetadata(station) {
+            if (!station || track?.station !== station ||
+                track?.title !== currentSongObj?.Title) {
+                return;
+            }
+            for (const [selector, value] of [
+                ["#PlaybackTitle", track.song],
+                ["#currentArtist p", track.artist],
+                ["#currentAlbum p", track.album]
+            ]) {
+                const field = document.querySelector(selector);
+                if (field && typeof value === "string" && value &&
+                    field.textContent !== value) {
+                    field.textContent = value;
+                }
+            }
+        }
+
         function render() {
             const station = currentStation();
+            renderMetadata(station);
             if (station) {
                 const canSkip = !busy && track?.station === station &&
                     track.title === currentSongObj?.Title && track.canSkip;
