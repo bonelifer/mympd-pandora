@@ -257,8 +257,61 @@
         const updateNativeControls = updatePlaybackControls;
         let hadPandoraControls = false;
 
+        const miniCover = document.getElementById("footerCover");
+        const albumCover = document.createElement("img");
+        albumCover.alt = "";
+        albumCover.hidden = true;
+        albumCover.className = "position-absolute top-0 start-0 w-100 h-100 object-fit-contain pe-none bg-body";
+        albumCover.addEventListener("load", () => { albumCover.hidden = false; });
+        albumCover.addEventListener("error", () => { albumCover.hidden = true; });
+
+        function renderAlbumCover(station) {
+            let source = "";
+            if (station && track?.station === station &&
+                track.title === currentSongObj?.Title && track.albumArtUrl) {
+                try {
+                    const url = new URL(track.albumArtUrl);
+                    if (["http:", "https:"].includes(url.protocol) && !url.username && !url.password &&
+                        !url.port && /(?:^|\.)(?:p-cdn\.(?:com|us)|pandora\.com)$/i.test(url.hostname)) {
+                        url.protocol = "https:";
+                        source = getImageUri(url.href);
+                    }
+                } catch {
+                    // Keep the station cover when Pandora supplies an invalid URL.
+                }
+            }
+            if (albumCover.getAttribute("src") !== (source || null)) {
+                albumCover.hidden = true;
+                if (source) albumCover.setAttribute("src", source);
+                else albumCover.removeAttribute("src");
+            }
+            if (source && miniCover && albumCover.parentNode !== miniCover) {
+                miniCover.append(albumCover);
+            }
+        }
+
+        function renderMetadata(station) {
+            if (!station || track?.station !== station ||
+                track?.title !== currentSongObj?.Title) {
+                return;
+            }
+            for (const [selector, value] of [
+                ["#PlaybackTitle", track.song],
+                ["#currentArtist p", track.artist],
+                ["#currentAlbum p", track.album]
+            ]) {
+                const field = document.querySelector(selector);
+                if (field && typeof value === "string" && value &&
+                    field.textContent !== value) {
+                    field.textContent = value;
+                }
+            }
+        }
+
         function render() {
             const station = currentStation();
+            renderMetadata(station);
+            renderAlbumCover(station);
             if (station) {
                 const canSkip = !busy && track?.station === station &&
                     track.title === currentSongObj?.Title && track.canSkip;

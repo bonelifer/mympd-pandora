@@ -17,14 +17,14 @@ export PANDORA_UID="$(id -u)" PANDORA_GID="$(id -g)"
 If myMPD and MPD use host networking, start the bridge on loopback.
 
 ```bash
-docker compose -f compose.yaml -f compose.host.yaml up --build -d
+docker compose -f compose.yaml -f compose.host.yaml up --pull always -d
 ```
 
 If myMPD and MPD share a private Docker network, use the base Compose file.
 
 ```bash
 export MPD_NETWORK=your-existing-mpd-network
-docker compose up --build -d
+docker compose up --pull always -d
 ```
 
 Clients on that Docker network can list and play stations.
@@ -70,7 +70,7 @@ Install the controls proxy with `install-picker.py --controls` using the same
 myMPD and bridge URLs as for the picker. Use `--replace` to update an existing
 proxy.
 
-Copy `pandora-controls.js` to `pics/pandora-controls-v5.js` in myMPD's work
+Copy `pandora-controls.js` to `pics/pandora-controls-v9.js` in myMPD's work
 directory. Add the contents of `pandora-loader.js` to `config/custom_js`
 (`config/custom.js` in some versions). The loader keeps the customization file
 within myMPD's size limit. If you use a different bridge URL, set the

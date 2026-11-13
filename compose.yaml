@@ -1,6 +1,6 @@
 services:
   pandora:
-    build: .
+    image: ghcr.io/bonelifer/mympd-pandora:latest
     user: "${PANDORA_UID:?Set PANDORA_UID}:${PANDORA_GID:?Set PANDORA_GID}"
     volumes:
       - type: bind
