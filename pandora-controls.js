@@ -230,7 +230,7 @@
             "btn px-2 mi rounded-2 d-none");
         songActions.title = "Pandora song actions";
         songActions.setAttribute("aria-label", songActions.title);
-        const manager = button("tune", openManager, "btn px-2 mi rounded-2");
+        const manager = button("tune", openManager, "btn px-2 mi rounded-2 d-none");
         manager.title = "Manage Pandora stations";
         manager.setAttribute("aria-label", manager.title);
         next.after(heart, thumbsDown, removeRating, songActions, manager);
@@ -326,6 +326,7 @@
             hadPandoraControls = Boolean(station);
             const loved = Boolean(track?.loved);
             heart.classList.toggle("d-none", !station);
+            manager.classList.toggle("d-none", !station);
             thumbsDown.classList.toggle("d-none", !station);
             thumbsDown.disabled = busy || !track?.canLove;
             for (const button of [removeRating, songActions]) {
